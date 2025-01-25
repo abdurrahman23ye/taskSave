@@ -13,7 +13,7 @@ public class SauceDemoMainPage {
         PageFactory.initElements(Driver.getDriver(),this);
 
     }
-//butun locatorlarda tek özellik uniquese bile yine de ikiser tane özellik kullanmaya özen gösterdim
+
 
     @FindBy(xpath = "//input[@id='user-name' and @name='user-name']")
     public WebElement usernameTextBox;
@@ -23,8 +23,6 @@ public class SauceDemoMainPage {
 
     @FindBy(xpath = "//input[@id='login-button' and @name='login-button']")
     public WebElement loginButton;
-
-
 
     @FindBy(xpath = "//a[@id='item_4_title_link']")
     public WebElement firstRandomAddedItem;
@@ -37,6 +35,27 @@ public class SauceDemoMainPage {
 
     @FindBy(xpath = "(//div[@data-test='inventory-item-price'])[2]")
     public WebElement secondRandomAddedItemPrice;
+
+    @FindBy(xpath = "//button[@id='add-to-cart-sauce-labs-backpack']")
+    public WebElement firstProductAddToCartButton;
+
+    @FindBy(xpath = "//button[@id='add-to-cart-sauce-labs-bike-light']")
+    public WebElement secondProductAddToCartButton;
+
+    @FindBy(xpath = "//a[@data-test='shopping-cart-link']")
+    public WebElement cartButton;
+
+    @FindBy(xpath = "//button[@id='checkout']")
+    public WebElement checkoutButton;
+
+    @FindBy(xpath = "//input[@id='first-name']")
+    public WebElement firts;
+
+
+
+
+
+
 
 
 

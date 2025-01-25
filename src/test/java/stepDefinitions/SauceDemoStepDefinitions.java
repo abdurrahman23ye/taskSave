@@ -2,9 +2,14 @@ package stepDefinitions;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import pages.CheckoutPage;
+import pages.CompletePage;
+import pages.OverviewPage;
 import pages.SauceDemoMainPage;
 import utulities.ConfigReader;
 import utulities.Driver;
@@ -12,6 +17,10 @@ import utulities.Driver;
 public class SauceDemoStepDefinitions {
 
     SauceDemoMainPage sauceDemoMainPage=new SauceDemoMainPage();
+    CheckoutPage checkoutPage=new CheckoutPage();
+    OverviewPage overviewPage=new OverviewPage();
+    CompletePage completePage=new CompletePage();
+
 
     static String item1text;
     static String item1price;
@@ -47,23 +56,46 @@ public class SauceDemoStepDefinitions {
             case"login" :
            sauceDemoMainPage.loginButton.click();
            break;
+
+            case"cart" :
+                sauceDemoMainPage.cartButton.click();
+                break;
+
+            case"checkout" :
+                ((JavascriptExecutor) Driver.getDriver()).
+                        executeScript("arguments[0].scrollIntoView(true);", sauceDemoMainPage.checkoutButton);
+                sauceDemoMainPage.checkoutButton.click();
+                break;
+
+            case"continue" :
+                checkoutPage.continueButton.click();
+                break;
+
+            case"finish" :
+                overviewPage.finishButton.click();
+                break;
+
+
+
+
+
+
         }
     }
 
 
     public void itemAssertDatas(){
 
-       item2text=sauceDemoMainPage.firstRandomAddedItem.getText();
-       item1text=sauceDemoMainPage.secondRandomAddedItem.getText();
+       item1text=sauceDemoMainPage.firstRandomAddedItem.getText();
+       item2text=sauceDemoMainPage.secondRandomAddedItem.getText();
        item1price=sauceDemoMainPage.firstRandomAddedItemPrice.getText().
                replace("$","");
-       item2price=sauceDemoMainPage.secondRandomAddedItemPrice.getText().replace("$","")
-               ;
+       item2price=sauceDemoMainPage.secondRandomAddedItemPrice.getText().replace("$","");
 
 
        totalPrice=Double.valueOf(item1price)+Double.valueOf(item2price);
 
-        System.out.println(item1text+item2text+totalPrice);
+
 
     }
 
@@ -71,5 +103,53 @@ public class SauceDemoStepDefinitions {
     public void userChoosesRandomTwoProductAndAddsThemToCart() {
 
         itemAssertDatas();
+
+        sauceDemoMainPage.firstProductAddToCartButton.click();
+        sauceDemoMainPage.secondProductAddToCartButton.click();
+    }
+
+    @And("User fills name,last name and zip code infos to the textboxs")
+    public void userFillsNameLastNameAndZipCodeInfosToTheTextboxs() {
+
+        ((JavascriptExecutor) Driver.getDriver()).
+                executeScript("arguments[0].scrollIntoView(true);", checkoutPage.firstNameTextbox);
+
+        checkoutPage.firstNameTextbox.sendKeys(ConfigReader.getProperty("name"));
+        checkoutPage.lastNameTextbox.sendKeys(ConfigReader.getProperty("lastName"));
+        checkoutPage.postalCodeTextbox.sendKeys(ConfigReader.getProperty("zip"));
+
+
+
+
+    }
+
+    @And("User verifies added products and total price")
+    public void userVerifiesAddedProductsAndTotalPrice() {
+
+        double firstItemPrice=Double.valueOf(overviewPage.
+                firstAddedItemPrice.getText().replace("$",""));
+
+        double secondItemPrice=Double.valueOf(overviewPage.
+                secondAddedItemPrice.getText().replace("$",""));
+
+        double actualResult=firstItemPrice+secondItemPrice;
+
+
+        Assert.assertEquals(item1text,overviewPage.firstAddedItem.getText());
+        Assert.assertEquals(item2text,overviewPage.secondAddedItem.getText());
+        Assert.assertEquals(totalPrice, actualResult, 0.0);
+    }
+
+    @Then("User verifies complete transaction by the see the text that include {string}")
+    public void userVerifiesCompleteTransactionByTheSeeTheTextThatInclude(String arg0) {
+
+        Assert.assertTrue(completePage.completeMessageLabel.getText().contains(arg0));
+    }
+
+
+
+    @Then("User close web page")
+    public void userCloseWebPage() {
+        Driver.closeDriver();
     }
 }
