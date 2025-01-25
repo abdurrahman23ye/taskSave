@@ -17,7 +17,7 @@ public class SauceDemoStepDefinitions {
     static String item1price;
     static String item2text;
     static String item2price;
-    static int totalPrice;
+    static double totalPrice;
 
 
 
@@ -53,13 +53,15 @@ public class SauceDemoStepDefinitions {
 
     public void itemAssertDatas(){
 
-       item2text=sauceDemoMainPage.firstRondomAddedItem.getText();
-       item1text=sauceDemoMainPage.secondRondomAddedItem.getText();
-       item1price=sauceDemoMainPage.firstRondomAddedItemPrice.getText();
-       item1price=sauceDemoMainPage.secondRondomAddedItemPrice.getText();
+       item2text=sauceDemoMainPage.firstRandomAddedItem.getText();
+       item1text=sauceDemoMainPage.secondRandomAddedItem.getText();
+       item1price=sauceDemoMainPage.firstRandomAddedItemPrice.getText().
+               replace("$","");
+       item2price=sauceDemoMainPage.secondRandomAddedItemPrice.getText().replace("$","")
+               ;
 
 
-       totalPrice=Integer.valueOf(item1price)+Integer.valueOf(item2price);
+       totalPrice=Double.valueOf(item1price)+Double.valueOf(item2price);
 
         System.out.println(item1text+item2text+totalPrice);
 

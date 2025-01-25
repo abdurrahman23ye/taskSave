@@ -32,10 +32,10 @@ public class SauceDemoMainPage {
     @FindBy(xpath = "//a[@id='item_0_title_link']")
     public WebElement secondRandomAddedItem;
 
-    @FindBy(xpath = "//div[@data-test='inventory-item-price'][1]")
+    @FindBy(xpath = "(//div[@data-test='inventory-item-price'])[1]")
     public WebElement firstRandomAddedItemPrice;
 
-    @FindBy(xpath = "//div[@data-test='inventory-item-price'][2]")
+    @FindBy(xpath = "(//div[@data-test='inventory-item-price'])[2]")
     public WebElement secondRandomAddedItemPrice;
 
 
