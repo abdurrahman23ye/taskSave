@@ -13,6 +13,9 @@ import pages.OverviewPage;
 import pages.SauceDemoMainPage;
 import utulities.ConfigReader;
 import utulities.Driver;
+import utulities.ReusableMethods;
+
+import java.io.IOException;
 
 public class SauceDemoStepDefinitions {
 
@@ -141,9 +144,11 @@ public class SauceDemoStepDefinitions {
     }
 
     @Then("User verifies complete transaction by the see the text that include {string}")
-    public void userVerifiesCompleteTransactionByTheSeeTheTextThatInclude(String arg0) {
+    public void userVerifiesCompleteTransactionByTheSeeTheTextThatInclude(String arg0) throws IOException {
 
         Assert.assertTrue(completePage.completeMessageLabel.getText().contains(arg0));
+
+        ReusableMethods.getScreenshot("savingText");
     }
 
 

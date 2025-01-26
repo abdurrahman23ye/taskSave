@@ -16,4 +16,4 @@ Feature: Sauce Demo Webpages tests.
     And User verifies added products and total price
     And User clicks "finish" button
     And User verifies complete transaction by the see the text that include "Thank you"
-    Then User close webPage
+    Then User close web page
