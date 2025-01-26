@@ -30,7 +30,7 @@ public class ReusableMethods {
         TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
         File source = ts.getScreenshotAs(OutputType.FILE);
         // full path to the screenshot location
-        String target = "D:\\SouseDemoTaskCucumber\\src\\test\\Target" + name + ".png";
+        String target = "D:\\SouseDemoTaskCucumber\\src\\test\\Target\\" + name + ".png";
         File finalDestination = new File(target);
         // save the screenshot to the path given
 

@@ -148,7 +148,7 @@ public class SauceDemoStepDefinitions {
 
         Assert.assertTrue(completePage.completeMessageLabel.getText().contains(arg0));
 
-        ReusableMethods.getScreenshot("savingText");
+        ReusableMethods.getScreenshot("transactionCompleteText");
     }
 
 
