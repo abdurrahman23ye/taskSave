@@ -6,6 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import utulities.Driver;
 
 import javax.xml.xpath.XPath;
+import java.util.List;
+import java.util.Random;
 
 public class SauceDemoMainPage {
 
@@ -13,6 +15,9 @@ public class SauceDemoMainPage {
         PageFactory.initElements(Driver.getDriver(),this);
 
     }
+
+
+
 
 
     @FindBy(xpath = "//input[@id='user-name' and @name='user-name']")
@@ -24,7 +29,9 @@ public class SauceDemoMainPage {
     @FindBy(xpath = "//input[@id='login-button' and @name='login-button']")
     public WebElement loginButton;
 
-    @FindBy(xpath = "//a[@id='item_4_title_link']")
+    //düzeltme sonrası alttaki elementlerin kodta yeri yok ama kaldırmadım lazım olabilir diye
+
+    @FindBy(xpath = "(//a[@id='item_4_title_link)")
     public WebElement firstRandomAddedItem;
 
     @FindBy(xpath = "//a[@id='item_0_title_link']")
@@ -48,8 +55,10 @@ public class SauceDemoMainPage {
     @FindBy(xpath = "//button[@id='checkout']")
     public WebElement checkoutButton;
 
-    @FindBy(xpath = "//input[@id='first-name']")
-    public WebElement firts;
+    @FindBy(className = "inventory_item")
+    public List<WebElement> addToCartButtons;
+
+
 
 
 

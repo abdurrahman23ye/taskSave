@@ -4,18 +4,23 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.WebElement;
 import pages.CheckoutPage;
 import pages.CompletePage;
 import pages.OverviewPage;
 import pages.SauceDemoMainPage;
+import utulities.ChoosingRandomItemForAddToCart;
 import utulities.ConfigReader;
 import utulities.Driver;
 import utulities.ReusableMethods;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+
+import static utulities.ChoosingRandomItemForAddToCart.*;
 
 public class SauceDemoStepDefinitions {
 
@@ -23,13 +28,10 @@ public class SauceDemoStepDefinitions {
     CheckoutPage checkoutPage=new CheckoutPage();
     OverviewPage overviewPage=new OverviewPage();
     CompletePage completePage=new CompletePage();
+    ChoosingRandomItemForAddToCart choosingRandomItemForAddToCart=new ChoosingRandomItemForAddToCart();
 
 
-    static String item1text;
-    static String item1price;
-    static String item2text;
-    static String item2price;
-    static double totalPrice;
+
 
 
 
@@ -87,28 +89,15 @@ public class SauceDemoStepDefinitions {
     }
 
 
-    public void itemAssertDatas(){
 
-       item1text=sauceDemoMainPage.firstRandomAddedItem.getText();
-       item2text=sauceDemoMainPage.secondRandomAddedItem.getText();
-       item1price=sauceDemoMainPage.firstRandomAddedItemPrice.getText().
-               replace("$","");
-       item2price=sauceDemoMainPage.secondRandomAddedItemPrice.getText().replace("$","");
-
-
-       totalPrice=Double.valueOf(item1price)+Double.valueOf(item2price);
-
-
-
-    }
 
     @And("User chooses random two product and adds them to cart")
     public void userChoosesRandomTwoProductAndAddsThemToCart() {
 
-        itemAssertDatas();
+        choosingRandomItemForAddToCart.choosingRandomItem();
 
-        sauceDemoMainPage.firstProductAddToCartButton.click();
-        sauceDemoMainPage.secondProductAddToCartButton.click();
+     //   sauceDemoMainPage.firstProductAddToCartButton.click();
+    //    sauceDemoMainPage.secondProductAddToCartButton.click();
     }
 
     @And("User fills name,last name and zip code infos to the textboxs")
@@ -129,7 +118,7 @@ public class SauceDemoStepDefinitions {
     @And("User verifies added products and total price")
     public void userVerifiesAddedProductsAndTotalPrice() {
 
-        double firstItemPrice=Double.valueOf(overviewPage.
+        double firstItemPrice=Double.parseDouble(overviewPage.
                 firstAddedItemPrice.getText().replace("$",""));
 
         double secondItemPrice=Double.valueOf(overviewPage.
@@ -157,4 +146,6 @@ public class SauceDemoStepDefinitions {
     public void userCloseWebPage() {
         Driver.closeDriver();
     }
+
+
 }

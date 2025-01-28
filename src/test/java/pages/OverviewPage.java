@@ -12,16 +12,16 @@ public class OverviewPage {
 
     }
 
-    @FindBy(xpath = "//a[@id='item_4_title_link']")
+    @FindBy(xpath = "(//div[@class='inventory_item_name'])[1]")
     public WebElement firstAddedItem;
 
-    @FindBy(xpath = "//a[@id='item_0_title_link']")
+    @FindBy(xpath = "(//div[@class='inventory_item_name'])[2]")
     public WebElement secondAddedItem;
 
-    @FindBy(xpath = "(//div[@data-test='inventory-item-price'])[1]")
+    @FindBy(xpath = "(//div[@class='item_pricebar'])[1]")
     public WebElement firstAddedItemPrice;
 
-    @FindBy(xpath = "(//div[@data-test='inventory-item-price'])[2]")
+    @FindBy(xpath = "(//div[@class='item_pricebar'])[2]")
     public WebElement secondAddedItemPrice;
 
     @FindBy(xpath = "//button[@id='finish']")
